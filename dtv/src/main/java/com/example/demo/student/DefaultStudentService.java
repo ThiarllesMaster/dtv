@@ -22,8 +22,9 @@ public class DefaultStudentService implements StudentService {
 	public Student saveStudent(String nameStudent) {
 		Student student = new Student();
 		student.setName(nameStudent);
-
-		List<Student> students = findStudents();
+		
+	
+	List<Student> students = findStudents();
 		if (students == null) {
 		}
 
@@ -42,22 +43,12 @@ public class DefaultStudentService implements StudentService {
 				students.addAll(pageStudent.getContent());
 				return students;
 			}
-			int totalPages = (int) totalRecords / recordsByPage;
-
+			
+			int totalPages = (int) totalRecords / recordsByPage + 1;
+			
 			for (int i = 0; i < totalPages; i++) {
 				Page<Student> page = studentRepository.findAll(PageRequest.of(i, recordsByPage));
 				students.addAll(page.getContent());
-
-			}
-			long resto = totalRecords % totalPages;
-			if (resto > 0 || totalPages == 1) {
-				int lastPage = totalPages + 1;
-				long lastRecords = (resto == 0) ? totalRecords - recordsByPage : resto;
-				if (lastRecords > 0) {
-					Page<Student> pageStudent = studentRepository.findAll(PageRequest.of((int) lastPage, (int) lastRecords));
-					students.addAll(pageStudent.getContent());
-
-				}
 
 			}
 
