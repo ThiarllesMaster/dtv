@@ -1,0 +1,3 @@
+Access modifiers: public, protected, default, private 
+Constants: public static final 
+Variable local don´t have modifier 
